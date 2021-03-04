@@ -1,6 +1,9 @@
+const webpack = require('webpack');
+const path = require('path');
+
 module.exports = {
   mode: 'development',
-  entry: __dirname + '/client/src/index.jsx',
+  entry: path.join(__dirname + '/client/src/index.jsx'),
   module: {
     rules: [
       {
@@ -17,6 +20,7 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: __dirname + '/public/dist'
+    path: path.join(__dirname + '/public/dist'),
+    publicPath: '/'
   }
 };

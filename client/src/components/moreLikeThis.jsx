@@ -1,4 +1,6 @@
-class MoreLikeThis extends React.Components {
+import react from 'react';
+
+class MoreLikeThis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

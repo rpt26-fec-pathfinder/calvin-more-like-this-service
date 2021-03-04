@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 let moreLikeThisSchema = new mongoose.Schema({
   id: {type: Number, unique: true},
   title: String,
