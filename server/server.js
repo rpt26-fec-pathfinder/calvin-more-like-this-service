@@ -6,24 +6,23 @@ const port = 4022;
 
 app.use(express.static(path.join(__dirname + '/../public/dist')));
 
-let x = (path.join(__dirname + '/../public/dist'));
-console.log(x);
-
+// Added with SEIR's assistance
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Origin', '*');
   res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
   );
   next();
 });
+// Added with SEIR's assistance
 
-app.get('/', (req, res) => {
-  res.status(200).end();
-});
+// app.get('/', (req, res) => {
+//   res.status(200).end();
+// });
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

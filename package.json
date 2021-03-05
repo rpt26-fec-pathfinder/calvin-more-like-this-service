@@ -8,8 +8,9 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "start": "nodemon server/server.js",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "seed": "node server/seedingScript.js",
+    "start": "nodemon server/server.js"
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
