@@ -7,11 +7,11 @@ mongoose.connect('mongodb://localhost/moreLikeThis', {
   useCreateIndex: true
 });
 
-// const db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function() {
-//   console.log('Connected to database');
-// });
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Connected to database');
+});
 
 const moreLikeThisSchema = new mongoose.Schema({
   id: {type: Number, unique: true},
@@ -25,7 +25,7 @@ const moreLikeThisSchema = new mongoose.Schema({
   gallery: [String],
   similarGames: [
     {
-      id: {type: Number, unique: true},
+      id: Number,
       title: String,
       price: String,
       releaseDate: String,
