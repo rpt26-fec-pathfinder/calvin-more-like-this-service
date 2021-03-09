@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Game = require('../database/index.js');
+const { Game } = require('../database/index.js');
 const axios = require('axios');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 
@@ -27,7 +27,7 @@ const createRandomTags = (tags) => {
 ///// Seed my database function /////
 
 
-const seedDatabase = () => {
+const seedGames = () => {
   // create placeholders for queried data
   let title;
   let price;
@@ -41,33 +41,42 @@ const seedDatabase = () => {
   // start entires for database
   for (let i = 2; i <= 100; i++) {
 
-    // GET request to James' product endpoint
-    axios.get(`jamesEndpoint/:${i}`)
-      .then(response => {
-        /*
-        title = response.
-        price = response.
-        releaseDate = response.
-        */
-      });
+    // // GET request to James' product endpoint
+    // axios.get(`jamesEndpoint/:${i}`)
+    //   .then(response => {
+    //     /*
+    //     title = response.
+    //     price = response.
+    //     releaseDate = response.
+    //     */
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
 
-    // GET request to Tim's review endpoint
-    axios.get(`timEndpoint/:${i}`)
-      .then(response => {
-        /*
-        reviewCount = response.
-        reviewRating = response.
-        */
-      });
+    // // GET request to Tim's review endpoint
+    // axios.get(`timEndpoint/:${i}`)
+    //   .then(response => {
+    //     /*
+    //     reviewCount = response.
+    //     reviewRating = response.
+    //     */
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
 
-    // GET request to Anthony's photo endpoint
-    axios.get(`anthonyEndpoint/:${i}`)
-      .then(response => {
-        /*
-        headerImage = response.
-        gallery = response.
-        */
-      });
+    // // GET request to Anthony's photo endpoint
+    // axios.get(`anthonyEndpoint/:${i}`)
+    //   .then(response => {
+    //     /*
+    //     headerImage = response.
+    //     gallery = response.
+    //     */
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
 
     let gameEntry = new Game({
       id: i,
@@ -82,50 +91,43 @@ const seedDatabase = () => {
       similarGames: []
     });
 
-    gameEntry.save((err, gameEntry) => {
+    gameEntry.save((err) => {
       if (err) {
-        console.log('Error is', err);
+        console.log('Error with saving', err);
       }
     });
   }
 
 
-
-  let games;
-  let gameTags;
-  let similarGames = [];
-
   // Query for 100 games in database
-  Game.find(function (err, gamesQuery) {
+  Game.find({}, (err, games) => {
     if (err) {
-      return console.error(err);
-    }
-    games = gamesQuery;
-  });
-
-  // iterate through 2-100 games
-  for (let i = 2; i < games.length; i++) {
-    // retrieve tags for current game
-    gameTags = games[i].tags;
-    // iterate through 2-100 games again to find other games with similar tags
-    for (let j = 2; j < games.length; j++) {
-      // cap similarGames to only 5 games
-      if (similarGames.length < 5) {
-        // if current game's tags are found in the game from the inner loop
-        let found = gameTags.some(tag => { games[j].tags.indexOf(tag) !== -1; });
-        // push to similarGames variable if
-        if (found && (games[[i].id !== games[j].id])) {
-          similarGames.push(games[j]);
+      throw err;
+    } else {
+      let gameTags;
+      let similarGames = [];
+      // iterate through 2-100 games
+      for (let i = 2; i < games.length; i++) {
+        console.log('games[i] ->', games[i]);
+        // retrieve tags array for current game
+        gameTags = games[i].tags;
+        // iterate through 2-100 games again to find other games with similar tags
+        for (let j = 2; j < games.length; j++) {
+          gameTags.some(tag => {
+            if (similarGames.length < 5) {
+              if (games[j].tags.indexOf(tag) !== -1) {
+                similarGames.push(games[j]);
+              }
+            } else {
+              Game.updateOne({ id: games[i].id }, { similarGames: similarGames });
+              similarGames = [];
+            }
+          });
         }
-      } else {
-        Game.updateOne({id: games[i].id}, {similarGames: similarGames});
-        similarGames = [];
-        break;
       }
     }
-  }
+  });
 };
-
 
 ///// Seed main example from Steam website team will be using /////
 
@@ -170,4 +172,4 @@ const steamSampleSeed = () => {
 // run seeding functions
 
 steamSampleSeed();
-seedDatabase();
+seedGames();

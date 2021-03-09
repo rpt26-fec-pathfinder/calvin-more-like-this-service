@@ -38,6 +38,19 @@ const moreLikeThisSchema = new mongoose.Schema({
   ]
 });
 
+
 let Game = mongoose.model('Game', moreLikeThisSchema);
 
-module.exports = Game;
+module.exports = {
+
+  Game: mongoose.model('Game', moreLikeThisSchema),
+
+  retrieveAllGames: (callback) => {
+    module.exports.Game.find({}, callback);
+  },
+
+  retrieveGameAtId: (id, callback) => {
+    module.exports.Game.find({id: id}, callback);
+  }
+
+};
