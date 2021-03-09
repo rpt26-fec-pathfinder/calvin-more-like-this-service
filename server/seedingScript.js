@@ -42,42 +42,47 @@ const seedGames = () => {
   // start entires for database
   for (let i = 2; i <= 100; i++) {
 
-    // // GET request to James' product endpoint
-    // axios.get(`jamesEndpoint/:${i}`)
-    //   .then(response => {
-    //     /*
-    //     title = response.
-    //     price = response.
-    //     releaseDate = response.
-    //     */
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    // GET request to James' product endpoint
+    axios.get(`/api/product:${i}`)
+      .then(response => {
+        console.log('response J');
+        title = response.title;
+        price = response.price;
+        releaseDate = response.releaseDate;
+      })
+      .catch(err => {
+        console.log('error J');
+        title = `Game ${i} Title`;
+        price = `Game ${i} Price`;
+        console.log(price);
+        releaseDate = `Game ${i} Release Date`;
+      });
 
-    // // GET request to Tim's review endpoint
-    // axios.get(`timEndpoint/:${i}`)
-    //   .then(response => {
-    //     /*
-    //     reviewCount = response.
-    //     reviewRating = response.
-    //     */
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    // GET request to Tim's review endpoint
+    axios.get(`/:${i}`)
+      .then(response => {
+        console.log('response T');
+        reviewCount = response.reviewCount;
+        reviewRating = response.reviewRating;
+      })
+      .catch(err => {
+        console.log('error T');
+        reviewCount = `Game ${i} Total Reviews`;
+        reviewRating = `Game ${i} Review Summary`;
+      });
 
-    // // GET request to Anthony's photo endpoint
-    // axios.get(`anthonyEndpoint/:${i}`)
-    //   .then(response => {
-    //     /*
-    //     headerImage = response.
-    //     gallery = response.
-    //     */
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    // GET request to Anthony's photo endpoint
+    axios.get(`/images/:${i}`)
+      .then(response => {
+        console.log('response A');
+        headerImage = response.headerImage;
+        gallery = response.gallery;
+      })
+      .catch(err => {
+        console.log('error A');
+        headerImage = `Game ${i} Header Image`;
+        gallery = `Game ${i} Gallery`;
+      });
 
     let gameEntry = new Game({
       id: i,
@@ -105,14 +110,14 @@ const seedGames = () => {
         // retrieve tags array for current game
         gameTags = games[i].tags;
         for (let j = 2; j < games.length; j++) {
-          // save games in inner loop where at least one tag matches and game ids do not match
+          // save games from inner loop if at least one tag matches and the game ids are not the same
           gameTags.some(tag => {
             if (similarGames.length < 5) {
               if (games[j].tags.indexOf(tag) !== -1 && games[i].id !== games[j].id) {
                 similarGames.push(games[j]);
               }
             } else {
-              // update current game in outer loop with found similar games
+              // update outer loop game with similar games if found
               Game.updateOne({ id: games[i].id }, {$set: { similarGames: similarGames }}, (err, result) => {
                 if (err) {
                   throw err;
@@ -130,7 +135,6 @@ const seedGames = () => {
 };
 
 ///// Seed main example from Steam website team will be using /////
-
 
 const steamSampleSeed = () => {
   let gameEntry = new Game({
@@ -173,3 +177,38 @@ const steamSampleSeed = () => {
 
 steamSampleSeed();
 seedGames();
+
+
+
+// // GET request to James' product endpoint
+// const getProductInfo = () => {
+//   return axios.get(`/api/product:${i}`);
+// };
+// // GET request to Tim's review endpoint
+// const getReviewInfo = () => {
+//   return axios.get(`/:${i}`);
+// };
+// // GET request to Anthony's photo endpoint
+// const getPhotoInfo = () => {
+//   return axios.get(`/images/:${i}`);
+// };
+
+// Promise.all([getProductInfo(), getReviewInfo(), getPhotoInfo()])
+//   .then(results => {
+//     title = results[0].title;
+//     price = results[0].price;
+//     releaseDate = results[0].releaseDate;
+//     reviewCount = results[1].reviewCount;
+//     reviewRating = results[1].reviewRating;
+//     headerImage = results[2].headerImage;
+//     gallery = results[2].gallery;
+//   })
+//   .catch(err => {
+//     title = `Game ${i} Title`;
+//     price = `Game ${i} Price`;
+//     releaseDate = `Game ${i} Release Date`;
+//     reviewCount = `Game ${i} Total Reviews`;
+//     reviewRating = `Game ${i} Review Summary`;
+//     headerImage = `Game ${i} Header Image`;
+//     gallery = `Game ${i} Gallery`;
+//   });
