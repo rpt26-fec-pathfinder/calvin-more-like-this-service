@@ -38,7 +38,11 @@ app.get('/:id', (req, res) => {
     if (err) {
       throw err;
     } else {
-      res.send(result);
+      res.send(
+        `<p>Game ID: ${result[0].id}</p>
+        <p>Game Tags: ${result[0].tags}</p>
+        <p>Similar Games: ${result[0].similarGames}</p>`
+      );
     }
   });
 });
@@ -46,23 +50,3 @@ app.get('/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
-
-
-
-
-
-
-
-// const mongoose = require('mongoose');
-// const {Game} = require('../database/index.js');
-
-// let arr1 = ['Multiplayer', 'Historical'];
-// let arr2 = ['Multiplayer', 'Historical', 'fafa'];
-
-// let x = Game.find({id: 2}, (err, result) => {
-//   if (err) {
-//     throw err;
-//   } else {
-//     console.log(result[0]);
-//   }
-// });

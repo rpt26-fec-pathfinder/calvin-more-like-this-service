@@ -4,7 +4,6 @@ const axios = require('axios');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 
 
-
 // 62 random words that will be used for 'tags' in database
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -37,6 +36,8 @@ const seedGames = () => {
   let reviewRating;
   let headerImage;
   let gallery;
+
+  let promises = [];
 
   // start entires for database
   for (let i = 2; i <= 100; i++) {
@@ -91,42 +92,41 @@ const seedGames = () => {
       similarGames: []
     });
 
-    gameEntry.save((err) => {
-      if (err) {
-        console.log('Error with saving', err);
-      }
-    });
+    let savedGame = gameEntry.save();
+    promises.push(savedGame);
   }
 
-
-  // Query for 100 games in database
-  Game.find({}, (err, games) => {
-    if (err) {
-      throw err;
-    } else {
+  Promise.all(promises)
+    .then((games) => {
       let gameTags;
       let similarGames = [];
       // iterate through 2-100 games
       for (let i = 2; i < games.length; i++) {
-        console.log('games[i] ->', games[i]);
         // retrieve tags array for current game
         gameTags = games[i].tags;
-        // iterate through 2-100 games again to find other games with similar tags
         for (let j = 2; j < games.length; j++) {
+          // save games in inner loop where at least one tag matches and game ids do not match
           gameTags.some(tag => {
             if (similarGames.length < 5) {
-              if (games[j].tags.indexOf(tag) !== -1) {
+              if (games[j].tags.indexOf(tag) !== -1 && games[i].id !== games[j].id) {
                 similarGames.push(games[j]);
               }
             } else {
-              Game.updateOne({ id: games[i].id }, { similarGames: similarGames });
+              // update current game in outer loop with found similar games
+              Game.updateOne({ id: games[i].id }, {$set: { similarGames: similarGames }}, (err, result) => {
+                if (err) {
+                  throw err;
+                }
+              });
               similarGames = [];
             }
           });
         }
       }
-    }
-  });
+    })
+    .catch(err => {
+      console.log('Error in promise chain', err);
+    });
 };
 
 ///// Seed main example from Steam website team will be using /////
