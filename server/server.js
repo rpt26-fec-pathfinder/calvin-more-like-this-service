@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const {retrieveAllGames, retrieveGameAtId} = require('../database/index.js');
+const {retrieveGameAtId} = require('../database/index.js');
 
 const app = express();
 const port = 4022;
@@ -27,7 +27,7 @@ app.get('/:id', (req, res) => {
     if (err) {
       res.status(404).end();
     } else {
-      res.status(200).send(result);
+      res.status(200).send(`Game ID: ${result[0].id}, Tags: ${result[0].tags}, Similar Game IDs ${result[0].similarGames}`);
     }
   });
 });
