@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const {retrieveGameAtId} = require('../database/index.js');
+const getData = require('./helper.js');
 
 const app = express();
 const port = 4022;
@@ -36,3 +37,9 @@ app.get('/:id', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
 });
+
+
+// test area
+
+let x = getData(1);
+console.log(x);
