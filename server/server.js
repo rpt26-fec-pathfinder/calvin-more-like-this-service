@@ -32,16 +32,6 @@ app.get('/:id', (req, res) => {
   });
 });
 
-app.get('/allGames', (req, res) => {
-  retrieveAllGames((err, results) => {
-    if (err) {
-      throw err;
-    } else {
-      res.send(results.sort());
-    }
-  });
-});
-
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);

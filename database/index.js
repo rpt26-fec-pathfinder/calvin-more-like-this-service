@@ -15,39 +15,16 @@ db.once('open', function() {
 
 const moreLikeThisSchema = new mongoose.Schema({
   id: {type: Number, unique: true},
-  title: String,
-  price: String,
-  releaseDate: String,
-  reviewCount: Number,
-  reviewRating: String,
   tags: [String],
-  headerImage: String,
-  gallery: [String],
-  similarGames: [
-    {
-      id: Number,
-      title: String,
-      price: String,
-      releaseDate: String,
-      reviewCount: Number,
-      reviewRating: String,
-      tags: [String],
-      headerImage: String,
-      gallery: [String]
-    }
-  ]
+  similarGames: [{type: Number, unique: true}]
 });
 
-
 let Game = mongoose.model('Game', moreLikeThisSchema);
+
 
 module.exports = {
 
   Game: mongoose.model('Game', moreLikeThisSchema),
-
-  retrieveAllGames: (callback) => {
-    module.exports.Game.find({}, callback);
-  },
 
   retrieveGameAtId: (id, callback) => {
     module.exports.Game.find({id: id}, callback);
