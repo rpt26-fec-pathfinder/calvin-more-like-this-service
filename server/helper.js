@@ -1,12 +1,11 @@
 const axios = require('axios');
 
-const getData = (page) => {
+const getData = async (page) => {
 
   const data = {
     title: null,
     price: null,
     releaseDate: null,
-    tags: null,
     reviewCount: null,
     reviewRating: null,
     headerImage: null,
@@ -28,9 +27,10 @@ const getData = (page) => {
     return axios.get(`localhost:4012/images/${page}`);
   };
 
-  Promise.allSettled([getProductInfo(), getReviewInfo(), getPhotoInfo()])
+  await Promise.allSettled([getProductInfo(), getReviewInfo(), getPhotoInfo()])
     .then(results => {
       results.forEach(result => {
+        // if promise is rejected fill will placeholder data
         if (result.status === 'rejected') {
           if (result.reason.config.url.includes('4032')) {
             data.title = `Game ${page} Title`;
@@ -46,14 +46,24 @@ const getData = (page) => {
             console.log('Error with axios GET requests in Promise.allSettled');
           }
         } else {
-          console.log('All promises resolved successfully');
-          // set data object to values from successful GET requests
+          // if promise resolves, set equal to team data
+          if (result.reason.config.url.includes('4032')) {
+            data.title = 'TBD';
+            data.price = 'TBD';
+            data.releaseDate = 'TBD';
+          } else if (result.reason.config.url.includes('4052')) {
+            data.reviewCount = 'TBD';
+            data.reviewRating = 'TBD';
+          } else if (result.reason.config.url.includes('4012')) {
+            data.headerImage = 'TBD';
+            data.gallery = 'TBD';
+
+          }
         }
       });
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
+  return data;
 };
 
 module.exports = getData;

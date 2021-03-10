@@ -26,8 +26,8 @@ module.exports = {
 
   Game: mongoose.model('Game', moreLikeThisSchema),
 
-  retrieveGameAtId: (id, callback) => {
-    module.exports.Game.find({id: id}, callback);
+  retrieveGameAtId: (id) => {
+    return module.exports.Game.find({id: id});
   }
 
 };
