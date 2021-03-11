@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { Game } = require('../database/index.js');
-const axios = require('axios');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 
 
