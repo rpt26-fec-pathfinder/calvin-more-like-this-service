@@ -12,8 +12,6 @@ const getData = async (page) => {
     gallery: null
   };
 
-  let promises = [];
-
   // GET request to James' product endpoint
   const getProductInfo = () => {
     return axios.get(`http://localhost:4032/api/product/${page}`);
@@ -43,7 +41,7 @@ const getData = async (page) => {
             data.headerImage = `Game ID ${page} Header Image`;
             data.gallery = `Game ID ${page} Gallery`;
           } else {
-            console.log('Error with axios GET requests in Promise.allSettled');
+            console.log('Error in Promise.allSettled');
           }
         } else {
           // if promise resolves, set equal to team data
@@ -65,7 +63,8 @@ const getData = async (page) => {
         }
       });
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log('Error reaching to team\'s endpoints', err));
+
   return data;
 };
 
