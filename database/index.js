@@ -19,15 +19,10 @@ const moreLikeThisSchema = new mongoose.Schema({
   similarGames: [{type: Number, unique: true}]
 });
 
-let Game = mongoose.model('Game', moreLikeThisSchema);
+const Game = mongoose.model('Game', moreLikeThisSchema);
 
-
-module.exports = {
-
-  Game: Game,
-
-  retrieveGameAtId: (id) => {
-    return module.exports.Game.find({id: id});
-  }
-
+const retrieveGameAtId = (id) => {
+  return Game.find({id: id});
 };
+
+module.exports = {Game, retrieveGameAtId};

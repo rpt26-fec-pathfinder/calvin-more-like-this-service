@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const { Game } = require('../database/index.js');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 
@@ -26,9 +25,7 @@ const createRandomTags = (tags) => {
 
 ///// Seed my database function /////
 
-const seedGames = () => {
-
-  let promises = [];
+const seedGames = async () => {
 
   // start entires for database
   for (let i = 1; i <= 100; i++) {
@@ -39,11 +36,11 @@ const seedGames = () => {
       similarGames: []
     });
 
-    let savedGame = gameEntry.save();
-    promises.push(savedGame);
+    await gameEntry.save()
+      .catch(err => err);
   }
 
-  Promise.all(promises)
+  await Game.find().sort({ id: 1 })
     .then((games) => {
       let gameTags;
       let similarGames = [];
@@ -52,7 +49,7 @@ const seedGames = () => {
         // retrieve tags array for current game
         gameTags = games[i].tags;
         // use some to find at least one tag in another game
-        gameTags.some(tag => {
+        gameTags.some(async (tag) => {
           for (let j = 0; j < games.length; j++) {
             if (similarGames.length < 5) {
               // if an outer loop game tag can be found in an inner loop game and the games are not the same and the game does not already exist
@@ -61,22 +58,21 @@ const seedGames = () => {
               }
             } else {
               // update outer loop game with similar games if found
-              Game.updateOne({ id: games[i].id }, { $set: { similarGames: similarGames } }, (err, result) => {
-                if (err) {
-                  throw err;
-                }
-              });
-              similarGames = [];
+              await Game.updateOne({ id: games[i].id }, { $set: { similarGames: similarGames } })
+                .then(() => similarGames = [])
+                .catch(err => console.log('Error with update', err));
             }
           }
         });
       }
     })
     .catch(err => {
-      console.log('Error in promise chain', err);
+      console.log('Error querying database', err);
     });
 };
 
 // run seeding function
 
 seedGames();
+
+module.exports = {tagsArray, createRandomTags, seedGames};

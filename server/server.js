@@ -5,7 +5,6 @@ const { retrieveGameAtId } = require('../database/index.js');
 const getData = require('./helper.js');
 
 const app = express();
-const port = 4022;
 
 app.use(express.static(path.join(__dirname + '/../public/dist')));
 
@@ -63,6 +62,5 @@ app.get('/:id', (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+
+module.exports = {app};
