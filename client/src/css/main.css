@@ -1,0 +1,86 @@
+body {
+  background-color: #1b2838;
+}
+
+#moreLikeThis {
+  width: 616px;
+  height: 190px;
+  margin-top: 40px;
+  margin-bottom: 16px;
+}
+
+#serviceTitle {
+  line-height: 26px;
+  background-image: url(https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png);
+  background-repeat: no-repeat;
+  background-position: bottom left;
+}
+
+a {
+  height: 12px;
+  /* vertical-align: text-top; */
+  font-family: Arial, Arial, Helvetica, sans-serif;
+  float: right;
+  background-color: rgba( 103, 193, 245, 0.2 );
+  border-radius: 1px;
+  color: #67c1f5;
+  font-size: 11px;
+  padding: 2px 4px;
+  /* text-decoration: none; */
+  margin-right: 3px;
+}
+
+h2 {
+  font-family: "Motiva Sans", Sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 10px;
+  letter-spacing: 2px;
+  font-weight: normal;
+  padding-top: 2px;
+}
+
+.gamesContainer {
+  display: inline-block;
+  white-space: nowrap;
+  width: 616px;
+  /* not sure what these do */
+  overflow: hidden;
+  /* text-overflow: ellipsis; */
+}
+
+.games {
+  float: none;
+  display: inline-block;
+  vertical-align: top;
+  background-color: rgba( 0, 0, 0, 0.2 );
+  padding: 15px;
+  height: 100px;
+  margin-right: 2px;
+  border: 1px solid rgba( 0, 0, 0, 0 );
+}
+
+.headerImage {
+  height: 64.13px;
+  color: #ffffff;
+  width: 171px;
+}
+
+.title {
+  font-size: 13px;
+  font-family: "Motiva Sans", Sans-serif;
+  color: #8f98a0;
+  width: 171px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.price {
+  color: #acdbf5;
+  display: inline;
+  font-family: Tahoma, Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  line-height: 15px;
+}

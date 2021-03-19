@@ -21,42 +21,37 @@ app.use((req, res, next) => {
 });
 
 app.get('/:id', (req, res) => {
+  res.sendFile(path.resolve('public/dist/index.html'));
+});
+
+app.get('/morelikethis/:id', async (req, res) => {
   let id = req.params.id;
-  let data = {};
-  if (id > 100) {
+  // let data = {};
+
+  if (id > 100 || id < 0) {
     res.status(404).end('Game does not exist');
   } else {
     // retrieve tags from my database
-    retrieveGameAtId(id)
+    await retrieveGameAtId(id)
       .then(results => {
         if (!results) {
           res.status(404).end();
         } else {
-          data.id = results[0].id;
-          data.tags = results[0].tags;
-          data.similarGames = results[0].similarGames;
+          // data.id = results[0].id;
+          // data.tags = results[0].tags;
+          // data.similarGames = results[0].similarGames;
+          return results[0].similarGames;
         }
       })
       .catch(err => console.log('Databse query error.', err))
+
       // retrieve teammates data
-      .then(() => {
-        return getData(id);
-      })
-      .then(response => {
-        if (!response) {
-          res.status(404).end();
-        } else {
-          data.title = response.title;
-          data.price = response.price;
-          data.releaseDate = response.releaseDate;
-          data.reviewCount = response.reviewCount;
-          data.reviewRating = response.title;
-          data.headerImage = response.headerImage;
-          data.gallery = response.gallery;
+      .then(async similarGames => {
+        let similarGamesData = [];
+        for (let i = 0; i < similarGames.length; i++) {
+          similarGamesData.push(await getData(similarGames[i]));
         }
-      })
-      .then(() => {
-        res.status(200).send(data);
+        res.status(200).send(similarGamesData);
       })
       .catch(err => console.log('GET request error.', err));
   }
