@@ -45,26 +45,38 @@ const getData = async (page) => {
           }
         } else {
           // if promise resolves, set equal to team data
-          if (result.reason.config.url.includes('4032')) {
-            data.title = result.name;
-            data.price = result.price;
-            data.releaseDate = result.releaseDate;
-          } else if (result.reason.config.url.includes('4052')) {
-            data.reviewCount = result.length;
-            // will need to calculate the number of recommended (1)
-            // divide by the total number of reviews
-            // generate a string based on the percentage
-            data.reviewRating = 'TBD';
-          } else if (result.reason.config.url.includes('4012')) {
-            data.headerImage = result.headerImage;
-            data.gallery = result.moreLikeThisImages;
+          if (result.value.config.url.includes('4032')) {
+            data.title = result.value.data.name;
+            data.price = result.value.data.price;
+            data.releaseDate = result.value.data.releaseDate;
+          } else if (result.value.config.url.includes('4052')) {
+            data.reviewCount = result.value.data.length;
+            let recommended = 0;
+            for (let i = 0; i < data.reviewCount; i++) {
+              if (result.value.data[i].recommended === 1) {
+                recommended++;
+              }
+            }
+            if ((recommended / data.reviewCount) >= .80) {
+              data.reviewRating = 'Very Positive';
+            } else if ((recommended / data.reviewCount) >= .70) {
+              data.reviewRating = 'Mostly Positive';
+            } else if ((recommended / data.reviewCount) >= .40) {
+              data.reviewRating = 'Mixed';
+            } else if ((recommended / data.reviewCount) >= .20) {
+              data.reviewRating = 'Mostly Negative';
+            } else {
+              data.reviewRating = 'Very Negative';
+            }
+          } else if (result.value.config.url.includes('4012')) {
+            data.headerImage = result.value.data.headerImage;
+            data.gallery = result.value.data.moreLikeThisImages;
 
           }
         }
       });
     })
     .catch(err => console.log('Error reaching to team\'s endpoints', err));
-
   return data;
 };
 

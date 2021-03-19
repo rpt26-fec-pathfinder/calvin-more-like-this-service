@@ -69,6 +69,9 @@ const seedGames = async () => {
     .catch(err => {
       console.log('Error querying database', err);
     });
+  setTimeout(() => {
+    process.exit();
+  }, 1000);
 };
 
 // run seeding function
