@@ -20,13 +20,13 @@ app.use((req, res, next) => {
   next();
 });
 
+
 app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('public/dist/index.html'));
 });
 
 app.get('/morelikethis/:id', async (req, res) => {
   let id = req.params.id;
-  // let data = {};
 
   if (id > 100 || id < 0) {
     res.status(404).end('Game does not exist');
@@ -37,9 +37,6 @@ app.get('/morelikethis/:id', async (req, res) => {
         if (!results) {
           res.status(404).end();
         } else {
-          // data.id = results[0].id;
-          // data.tags = results[0].tags;
-          // data.similarGames = results[0].similarGames;
           return results[0].similarGames;
         }
       })

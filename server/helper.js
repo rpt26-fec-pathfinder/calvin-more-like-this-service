@@ -27,6 +27,7 @@ const getData = async (page) => {
 
   await Promise.allSettled([getProductInfo(), getReviewInfo(), getPhotoInfo()])
     .then(results => {
+      // console.log('this is results', results);
       results.forEach(result => {
         // if promise is rejected fill will placeholder data
         if (result.status === 'rejected') {
@@ -46,10 +47,13 @@ const getData = async (page) => {
         } else {
           // if promise resolves, set equal to team data
           if (result.value.config.url.includes('4032')) {
+
             data.title = result.value.data.name;
             data.price = result.value.data.price;
             data.releaseDate = result.value.data.releaseDate;
+
           } else if (result.value.config.url.includes('4052')) {
+
             data.reviewCount = result.value.data.length;
             let recommended = 0;
             for (let i = 0; i < data.reviewCount; i++) {
@@ -57,26 +61,33 @@ const getData = async (page) => {
                 recommended++;
               }
             }
-            if ((recommended / data.reviewCount) >= .80) {
+            let percentRecommended = recommended / data.reviewCount;
+            if (percentRecommended >= .80) {
               data.reviewRating = 'Very Positive';
-            } else if ((recommended / data.reviewCount) >= .70) {
+            } else if (percentRecommended >= .70) {
               data.reviewRating = 'Mostly Positive';
-            } else if ((recommended / data.reviewCount) >= .40) {
+            } else if (percentRecommended >= .40) {
               data.reviewRating = 'Mixed';
-            } else if ((recommended / data.reviewCount) >= .20) {
+            } else if (percentRecommended >= .20) {
               data.reviewRating = 'Mostly Negative';
             } else {
               data.reviewRating = 'Very Negative';
             }
+
           } else if (result.value.config.url.includes('4012')) {
-            data.headerImage = result.value.data.headerImage;
-            data.gallery = result.value.data.moreLikeThisImages;
+
+            data.headerImage = result.value.data[0].headerImage;
+            let gallery = result.value.data[0].mainImages.map(image => {
+              return image.main;
+            });
+            data.gallery = gallery;
 
           }
         }
       });
     })
     .catch(err => console.log('Error reaching to team\'s endpoints', err));
+
   return data;
 };
 

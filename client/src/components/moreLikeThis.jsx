@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Games from './games.jsx';
+import Slider from './slider.jsx';
 
 class MoreLikeThis extends React.Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class MoreLikeThis extends React.Component {
   }
 
   render() {
+
     return (
       <React.Fragment>
         <div id='serviceTitle'>
@@ -30,6 +32,7 @@ class MoreLikeThis extends React.Component {
           <h2>More Like This</h2>
         </div>
         <Games games={this.state.games}/>
+        <Slider/>
       </React.Fragment>
     );
   }

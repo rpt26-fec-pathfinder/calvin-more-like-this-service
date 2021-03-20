@@ -4,8 +4,8 @@ const request = require('supertest');
 let server;
 
 beforeAll(() => {
-  server = app.listen(3000, () => {
-    console.log('Listening on 3000 for testing');
+  server = app.listen(4000, () => {
+    console.log('Listening on 4000 for testing');
   });
 });
 
