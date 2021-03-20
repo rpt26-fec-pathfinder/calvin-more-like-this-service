@@ -1,22 +1,25 @@
-body {
+/* body {
   background-color: #1b2838;
-}
+} */
 
 #moreLikeThis {
+  margin-left: auto;
+  margin-right: auto;
   width: 616px;
   height: 190px;
   margin-top: 40px;
   margin-bottom: 16px;
+  background-color: #1b2838;
 }
 
-#serviceTitle {
+#moreLikeThis #serviceTitle {
   line-height: 26px;
   background-image: url(https://store.akamai.steamstatic.com/public/images/v6/maincol_gradient_rule.png);
   background-repeat: no-repeat;
   background-position: bottom left;
 }
 
-a {
+#moreLikeThis a {
   height: 12px;
   /* vertical-align: text-top; */
   font-family: Arial, Arial, Helvetica, sans-serif;
@@ -30,7 +33,7 @@ a {
   margin-right: 3px;
 }
 
-h2 {
+#moreLikeThis h2 {
   font-family: "Motiva Sans", Sans-serif;
   font-size: 14px;
   text-transform: uppercase;
@@ -41,7 +44,7 @@ h2 {
   padding-top: 2px;
 }
 
-.gamesContainer {
+#moreLikeThis .gamesContainer {
   display: inline-block;
   white-space: nowrap;
   width: 616px;
@@ -49,7 +52,7 @@ h2 {
   /* text-overflow: ellipsis; */
 }
 
-.games {
+#moreLikeThis .games {
   float: none;
   display: inline-block;
   vertical-align: top;
@@ -60,13 +63,13 @@ h2 {
   border: 1px solid rgba( 0, 0, 0, 0 );
 }
 
-.headerImage {
+#moreLikeThis .headerImage {
   height: 64.13px;
   color: #ffffff;
   width: 171px;
 }
 
-.title {
+#moreLikeThis .title {
   font-size: 13px;
   font-family: "Motiva Sans", Sans-serif;
   color: #8f98a0;
@@ -76,7 +79,7 @@ h2 {
   white-space: nowrap;
 }
 
-.price {
+#moreLikeThis .price {
   color: #acdbf5;
   display: inline;
   font-family: Tahoma, Arial, Helvetica, sans-serif;
@@ -84,13 +87,13 @@ h2 {
   line-height: 15px;
 }
 
-.slider {
+#moreLikeThis .slider {
   width: 616px;
   height: 18px;
   position: relative;
 }
 
-.sliderLeft {
+#moreLikeThis .sliderLeft {
   display: block;
   position: absolute;
   width: 38px;
@@ -102,7 +105,7 @@ h2 {
   cursor: pointer;
 }
 
-.sliderLeft span {
+#moreLikeThis .sliderLeft span {
   display: inline-block;
   background-position: -18px 0px;
   background-repeat: no-repeat;
@@ -113,7 +116,7 @@ h2 {
   margin-top: 5px;
 }
 
-.sliderRight {
+#moreLikeThis .sliderRight {
   display: block;
   position: absolute;
   width: 38px;
@@ -125,7 +128,7 @@ h2 {
   cursor: pointer;
 }
 
-.sliderRight span {
+#moreLikeThis .sliderRight span {
   display: inline-block;
   background-position: -9px 0px;
   background-repeat: no-repeat;
@@ -136,7 +139,7 @@ h2 {
   margin-top: 5px;
 }
 
-.sliderBar {
+#moreLikeThis .sliderBar {
   width: 538px;
   height: 18px;
   display: block;
@@ -149,7 +152,7 @@ h2 {
   border-radius: 3px;
 }
 
-.sliderHandle {
+#moreLikeThis .sliderHandle {
   display: block;
   position: absolute;
   left: 0px;
