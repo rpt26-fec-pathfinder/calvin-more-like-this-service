@@ -45,7 +45,6 @@ h2 {
   display: inline-block;
   white-space: nowrap;
   width: 616px;
-  /* not sure what these do */
   overflow: hidden;
   /* text-overflow: ellipsis; */
 }
@@ -83,4 +82,81 @@ h2 {
   font-family: Tahoma, Arial, Helvetica, sans-serif;
   font-size: 11px;
   line-height: 15px;
+}
+
+.slider {
+  width: 616px;
+  height: 18px;
+  position: relative;
+}
+
+.sliderLeft {
+  display: block;
+  position: absolute;
+  width: 38px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba( 0, 0, 0, 0.4 );
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sliderLeft span {
+  display: inline-block;
+  background-position: -18px 0px;
+  background-repeat: no-repeat;
+  background-image: url(https://store.akamai.steamstatic.com/public/images/v6/icon_cluster_controls.png);
+  width: 9px;
+  height: 7px;
+  margin-left: 13px;
+  margin-top: 5px;
+}
+
+.sliderRight {
+  display: block;
+  position: absolute;
+  width: 38px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba( 0, 0, 0, 0.4 );
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.sliderRight span {
+  display: inline-block;
+  background-position: -9px 0px;
+  background-repeat: no-repeat;
+  background-image: url(https://store.akamai.steamstatic.com/public/images/v6/icon_cluster_controls.png);
+  width: 9px;
+  height: 7px;
+  margin-left: 15px;
+  margin-top: 5px;
+}
+
+.sliderBar {
+  width: 538px;
+  height: 18px;
+  display: block;
+  position: absolute;
+  left: 39px;
+  right: 39px;
+  top: 0;
+  bottom: 0;
+  background-color: rgba( 0, 0, 0, 0.2 );
+  border-radius: 3px;
+}
+
+.sliderHandle {
+  display: block;
+  position: absolute;
+  left: 0px;
+  background-color: rgba( 0, 0, 0, 0.5 );
+  top: 0;
+  border-radius: 3px;
+  height: 18px;
+  width: 60px;
+  cursor: pointer;
 }
