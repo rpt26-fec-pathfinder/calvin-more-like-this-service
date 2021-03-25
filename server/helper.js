@@ -62,7 +62,9 @@ const getData = async (page) => {
               }
             }
             let percentRecommended = recommended / data.reviewCount;
-            if (percentRecommended >= .80) {
+            if (percentRecommended >= .90) {
+              data.reviewRating = 'Overwhelmingly Positive';
+            } else if (percentRecommended >= .80) {
               data.reviewRating = 'Very Positive';
             } else if (percentRecommended >= .70) {
               data.reviewRating = 'Mostly Positive';
@@ -70,8 +72,10 @@ const getData = async (page) => {
               data.reviewRating = 'Mixed';
             } else if (percentRecommended >= .20) {
               data.reviewRating = 'Mostly Negative';
-            } else {
+            } else if (percentRecommended >= .10) {
               data.reviewRating = 'Very Negative';
+            } else {
+              data.reviewRating = 'Overwhelmingly Negative';
             }
 
           } else if (result.value.config.url.includes('4012')) {
