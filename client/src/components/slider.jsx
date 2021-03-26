@@ -1,17 +1,19 @@
+import {StyledSlider, SliderLeftButton, SliderLeftArrow, SliderRightButton, SliderRightArrow, SliderBar, SliderHandle} from '../styledComponents/styled.slider.jsx';
+
 const Slider = () => {
 
   return (
-    <div className='slider'>
-      <div className='sliderLeft'>
-        <span></span>
-      </div>
-      <div className='sliderRight'>
-        <span></span>
-      </div>
-      <div className='sliderBar'>
-        <div className='sliderHandle'></div>
-      </div>
-    </div>
+    <StyledSlider>
+      <SliderLeftButton>
+        <SliderLeftArrow/>
+      </SliderLeftButton>
+      <SliderRightButton>
+        <SliderRightArrow/>
+      </SliderRightButton>
+      <SliderBar>
+        <SliderHandle/>
+      </SliderBar>
+    </StyledSlider>
   );
 };
 

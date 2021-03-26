@@ -1,11 +1,13 @@
+import {StyledGames, GameImage, GameTitle, GamePrice} from '../styledComponents/styled.game.jsx';
+
 const Game = ({game}) => {
 
   return (
-    <span className='games'>
-      <img className='headerImage' src={game.headerImage}/>
-      <div className='title'>{game.title}</div>
-      <div className='price'>{game.price}</div>
-    </span>
+    <StyledGames>
+      <GameImage src={game.headerImage}/>
+      <GameTitle>{game.title}</GameTitle>
+      <GamePrice>{game.price}</GamePrice>
+    </StyledGames>
   );
 };
 

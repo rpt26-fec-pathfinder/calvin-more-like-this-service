@@ -1,6 +1,7 @@
 import axios from 'axios';
 import Games from './games.jsx';
 import Slider from './slider.jsx';
+import {StyledMoreLikeThis, ServiceHeader, SeeAll, ServiceTitle} from '../styledComponents/styled.moreLikeThis.jsx';
 
 class MoreLikeThis extends React.Component {
   constructor(props) {
@@ -15,7 +16,6 @@ class MoreLikeThis extends React.Component {
   }
 
   async getGames() {
-    // use axios to fetch data
     let id = window.location.pathname.substring(1);
     await axios.get(`/morelikethis/${id}`)
       .then(games => {
@@ -24,16 +24,15 @@ class MoreLikeThis extends React.Component {
   }
 
   render() {
-
     return (
-      <React.Fragment>
-        <div id='serviceTitle'>
-          <a>See all</a>
-          <h2>More Like This</h2>
-        </div>
+      <StyledMoreLikeThis>
+        <ServiceHeader>
+          <SeeAll href={window.location.pathname}>See all</SeeAll>
+          <ServiceTitle>More Like This</ServiceTitle>
+        </ServiceHeader>
         <Games games={this.state.games}/>
         <Slider/>
-      </React.Fragment>
+      </StyledMoreLikeThis>
     );
   }
 }
