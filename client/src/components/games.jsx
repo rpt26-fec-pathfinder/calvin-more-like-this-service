@@ -1,13 +1,14 @@
 import Game from './game.jsx';
+import {GamesContainer} from '../styledComponents/styled.games.jsx';
 
 const Games = ({games}) => {
 
   return (
-    <div className='gamesContainer'>
+    <GamesContainer>
       {games.map((currentGame, i) => (
         <Game game={currentGame} key={i}/>
       ))}
-    </div>
+    </GamesContainer>
   );
 };
 
