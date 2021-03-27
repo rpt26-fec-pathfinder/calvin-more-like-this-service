@@ -7,7 +7,7 @@ class MoreLikeThis extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      games: []
+      games: [],
     };
   }
 
@@ -23,7 +23,17 @@ class MoreLikeThis extends React.Component {
       });
   }
 
+  scrollClick(e) {
+    e.preventDefault();
+    let game = document.getElementsByClassName('game');
+    game[1].scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+    });
+  }
+
   render() {
+
     return (
       <StyledMoreLikeThis>
         <ServiceHeader>
@@ -31,7 +41,7 @@ class MoreLikeThis extends React.Component {
           <ServiceTitle>More Like This</ServiceTitle>
         </ServiceHeader>
         <Games games={this.state.games}/>
-        <Slider/>
+        <Slider games={this.state.games} scrollClick={this.scrollClick.bind(this)}/>
       </StyledMoreLikeThis>
     );
   }

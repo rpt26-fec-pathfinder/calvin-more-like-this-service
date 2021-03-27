@@ -1,10 +1,10 @@
 import {StyledSlider, SliderLeftButton, SliderLeftArrow, SliderRightButton, SliderRightArrow, SliderBar, SliderHandle} from '../styledComponents/styled.slider.jsx';
 
-const Slider = () => {
+const Slider = ({games, ref, scrollClick}) => {
 
   return (
     <StyledSlider>
-      <SliderLeftButton>
+      <SliderLeftButton onClick={e => { scrollClick(e); }}>
         <SliderLeftArrow/>
       </SliderLeftButton>
       <SliderRightButton>

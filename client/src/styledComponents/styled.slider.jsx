@@ -1,5 +1,4 @@
 export const StyledSlider = styled.div`
-  width: 616px;
   height: 18px;
   position: relative;
 `;
