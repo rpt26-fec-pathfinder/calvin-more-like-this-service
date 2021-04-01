@@ -1,4 +1,4 @@
-export const StyledGames = styled.span`
+export const StyledGames = styled.a`
   float: none;
   display: inline-block;
   vertical-align: top;

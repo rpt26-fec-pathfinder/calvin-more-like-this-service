@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Games from './games.jsx';
-import Slider from './slider.jsx';
 import {StyledMoreLikeThis, ServiceHeader, SeeAll, ServiceTitle} from '../styledComponents/styled.moreLikeThis.jsx';
 
 class MoreLikeThis extends React.Component {
@@ -23,15 +22,6 @@ class MoreLikeThis extends React.Component {
       });
   }
 
-  scrollClick(e) {
-    e.preventDefault();
-    let game = document.getElementsByClassName('game');
-    game[1].scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest',
-    });
-  }
-
   render() {
 
     return (
@@ -41,7 +31,6 @@ class MoreLikeThis extends React.Component {
           <ServiceTitle>More Like This</ServiceTitle>
         </ServiceHeader>
         <Games games={this.state.games}/>
-        <Slider games={this.state.games} scrollClick={this.scrollClick.bind(this)}/>
       </StyledMoreLikeThis>
     );
   }

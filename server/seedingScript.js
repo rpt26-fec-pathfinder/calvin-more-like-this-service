@@ -51,7 +51,7 @@ const seedGames = async () => {
         // use some to find at least one tag in another game
         gameTags.some(async (tag) => {
           for (let j = 0; j < games.length; j++) {
-            if (similarGames.length < 5) {
+            if (similarGames.length < 10) {
               // if an outer loop game tag can be found in an inner loop game and the games are not the same and the game does not already exist
               if (games[j].tags.indexOf(tag) !== -1 && games[i].id !== games[j].id && similarGames.indexOf(games[j].id) === -1) {
                 similarGames.push(games[j].id);
