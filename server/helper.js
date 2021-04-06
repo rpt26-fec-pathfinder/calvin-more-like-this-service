@@ -37,12 +37,15 @@ const getData = async (page) => {
             data.title = `Game ID ${page} Title`;
             data.price = `Game ID ${page} Price`;
             data.releaseDate = `Game ID ${page} Release Date`;
+
           } else if (result.reason.config.url.includes('4052')) {
             data.reviewCount = `Game ID ${page} Review Count`;
             data.reviewRating = `Game ID ${page} Review Summary`;
+
           } else if (result.reason.config.url.includes('4012')) {
             data.headerImage = `Game ID ${page} Header Image`;
             data.gallery = `Game ID ${page} Gallery`;
+
           } else {
             console.log('Error in Promise.allSettled');
           }
