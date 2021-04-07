@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Games from './games.jsx';
-import Slider from './slider.jsx';
 import {StyledMoreLikeThis, ServiceHeader, SeeAll, ServiceTitle} from '../styledComponents/styled.moreLikeThis.jsx';
 
 class MoreLikeThis extends React.Component {
@@ -24,6 +23,7 @@ class MoreLikeThis extends React.Component {
   }
 
   render() {
+
     return (
       <StyledMoreLikeThis>
         <ServiceHeader>
@@ -31,7 +31,6 @@ class MoreLikeThis extends React.Component {
           <ServiceTitle>More Like This</ServiceTitle>
         </ServiceHeader>
         <Games games={this.state.games}/>
-        <Slider/>
       </StyledMoreLikeThis>
     );
   }

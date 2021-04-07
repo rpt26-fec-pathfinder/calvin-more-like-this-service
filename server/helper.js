@@ -3,6 +3,7 @@ const axios = require('axios');
 const getData = async (page) => {
 
   const data = {
+    id: null,
     title: null,
     price: null,
     releaseDate: null,
@@ -29,23 +30,28 @@ const getData = async (page) => {
     .then(results => {
       // console.log('this is results', results);
       results.forEach(result => {
-        // if promise is rejected fill will placeholder data
+        // if promise is rejected fill with placeholder data
         if (result.status === 'rejected') {
+          data.id = page;
           if (result.reason.config.url.includes('4032')) {
             data.title = `Game ID ${page} Title`;
             data.price = `Game ID ${page} Price`;
             data.releaseDate = `Game ID ${page} Release Date`;
+
           } else if (result.reason.config.url.includes('4052')) {
             data.reviewCount = `Game ID ${page} Review Count`;
             data.reviewRating = `Game ID ${page} Review Summary`;
+
           } else if (result.reason.config.url.includes('4012')) {
             data.headerImage = `Game ID ${page} Header Image`;
             data.gallery = `Game ID ${page} Gallery`;
+
           } else {
             console.log('Error in Promise.allSettled');
           }
         } else {
           // if promise resolves, set equal to team data
+          data.id = page;
           if (result.value.config.url.includes('4032')) {
 
             data.title = result.value.data.name;

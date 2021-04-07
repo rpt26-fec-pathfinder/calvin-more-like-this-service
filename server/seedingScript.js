@@ -26,8 +26,8 @@ const createRandomTags = (tags) => {
 ///// Seed my database function /////
 
 const seedGames = async () => {
+  console.log('Begin seeding database...');
 
-  // start entires for database
   for (let i = 1; i <= 100; i++) {
 
     let gameEntry = new Game({
@@ -37,44 +37,43 @@ const seedGames = async () => {
     });
 
     await gameEntry.save()
-      .catch(err => err);
+      .catch(err => {
+        console.log('Error saving game', err);
+      });
   }
 
   await Game.find().sort({ id: 1 })
     .then((games) => {
       let gameTags;
       let similarGames = [];
-      // iterate through retrieved games
+
       for (let i = 0; i < games.length; i++) {
-        // retrieve tags array for current game
         gameTags = games[i].tags;
-        // use some to find at least one tag in another game
-        gameTags.some(async (tag) => {
-          for (let j = 0; j < games.length; j++) {
-            if (similarGames.length < 5) {
-              // if an outer loop game tag can be found in an inner loop game and the games are not the same and the game does not already exist
-              if (games[j].tags.indexOf(tag) !== -1 && games[i].id !== games[j].id && similarGames.indexOf(games[j].id) === -1) {
-                similarGames.push(games[j].id);
-              }
-            } else {
-              // update outer loop game with similar games if found
-              await Game.updateOne({ id: games[i].id }, { $set: { similarGames: similarGames } })
-                .then(() => similarGames = [])
-                .catch(err => console.log('Error with update', err));
+
+        for (let j = 0; j < games.length; j++) {
+
+          if (similarGames.length < 10) {
+            let found = gameTags.some(tag => games[j].tags.indexOf(tag) >= 0);
+            if (found && (games[i].id !== games[j].id) && (similarGames.indexOf(games[j].id) === -1)) {
+              similarGames.push(games[j].id);
             }
+          } else {
+            Game.updateOne({ id: games[i].id }, { $set: { similarGames: similarGames } })
+              .catch(err => console.log('Error with update', err));
+            similarGames = [];
+            break;
           }
-        });
+        }
       }
     })
     .catch(err => {
       console.log('Error querying database', err);
     });
   setTimeout(() => {
+    console.log('Finished seeding');
     process.exit();
   }, 1000);
 };
-
-// run seeding function
 
 seedGames();
 

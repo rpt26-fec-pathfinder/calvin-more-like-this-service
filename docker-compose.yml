@@ -1,0 +1,15 @@
+version: "3"
+services:
+  app:
+    container_name: service
+    image: calvinminhla/service
+    build: .
+    ports:
+      - "4022:4022"
+    depends_on:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"

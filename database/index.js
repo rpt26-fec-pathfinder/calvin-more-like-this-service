@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/moreLikeThis', {
+mongoose.connect('mongodb://mongo:27017/steam', {
+// mongoose.connect('mongodb://localhost/steam', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -16,7 +17,7 @@ db.once('open', function() {
 const moreLikeThisSchema = new mongoose.Schema({
   id: {type: Number, unique: true},
   tags: [String],
-  similarGames: [{type: Number, unique: true}]
+  similarGames: [Number]
 });
 
 const Game = mongoose.model('Game', moreLikeThisSchema);
