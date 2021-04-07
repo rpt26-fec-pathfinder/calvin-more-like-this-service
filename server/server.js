@@ -1,10 +1,12 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { retrieveGameAtId } = require('../database/index.js');
 const getData = require('./helper.js');
 
 const app = express();
+app.use(cors());
 
 app.use(express.static(path.join(__dirname + '/../public/dist')));
 
