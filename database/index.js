@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-// mongoose.connect('mongodb://mongo:27017/steam', {
-mongoose.connect('mongodb://localhost/steam', {
+mongoose.connect('mongodb://mongo:27017/steam', {
+// mongoose.connect('mongodb://localhost/steam', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
