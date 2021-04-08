@@ -19,11 +19,11 @@ const getData = async (page) => {
   };
   // GET request to Tim's review endpoint
   const getReviewInfo = () => {
-    return axios.get(`http://localhost:4052/reviews/${page}`);
+    return axios.get(`http://18.144.23.11:4052/reviews/${page}`);
   };
   // GET request to Anthony's photo endpoint
   const getPhotoInfo = () => {
-    return axios.get(`http://localhost:4012/images/${page}`);
+    return axios.get(`http://100.24.35.141:4012/images/${page}`);
   };
 
   await Promise.allSettled([getProductInfo(), getReviewInfo(), getPhotoInfo()])
