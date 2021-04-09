@@ -3,7 +3,7 @@ import {StyledGames, GameImage, GameTitle, GamePrice} from '../styledComponents/
 const Game = ({game}) => {
 
   return (
-    <StyledGames href={`http://localhost:3000/${game.id}`}>
+    <StyledGames href={`http://54.219.241.15:3000/${game.id}`}>
       <GameImage src={game.headerImage}/>
       <GameTitle>{game.title}</GameTitle>
       <GamePrice>{game.price}</GamePrice>
