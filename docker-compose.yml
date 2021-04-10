@@ -15,6 +15,7 @@ services:
     restart: always
     volumes:
       - mongo-volume:/data/db
+    command: [--auth]
     ports:
       - "27017:27017"
 volumes:
