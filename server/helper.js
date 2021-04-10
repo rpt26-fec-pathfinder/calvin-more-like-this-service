@@ -33,7 +33,7 @@ const getData = async (page) => {
         // if promise is rejected fill with placeholder data
         if (result.status === 'rejected') {
           data.id = page;
-          if (result.reason.config.url.includes('4032')) {
+          if (result.reason.config.url.includes('3.227.255.185')) {
             data.title = `Game ID ${page} Title`;
             data.price = `Game ID ${page} Price`;
             data.releaseDate = `Game ID ${page} Release Date`;
