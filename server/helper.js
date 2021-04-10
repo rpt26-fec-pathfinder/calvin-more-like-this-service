@@ -52,7 +52,7 @@ const getData = async (page) => {
         } else {
           // if promise resolves, set equal to team data
           data.id = page;
-          if (result.value.config.url.includes('4032')) {
+          if (result.value.config.url.includes('3.227.255.185')) {
 
             data.title = result.value.data.name;
             data.price = result.value.data.price;
