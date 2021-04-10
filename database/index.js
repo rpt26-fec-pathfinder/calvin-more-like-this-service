@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-mongoose.connect('mongodb://mongo:27017/steam', {
-// mongoose.connect('mongodb://localhost/steam', {
+dotenv.config();
+
+let MONGO_URI = 'mongodb://mongo:27017/steam';
+
+if (process.env.NODE_ENV === 'development') {
+  MONGO_URI = 'mongodb://localhost/steam';
+}
+
+mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -11,7 +19,7 @@ mongoose.connect('mongodb://mongo:27017/steam', {
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('Connected to database');
+  console.log(`Connected to ${MONGO_URI}`);
 });
 
 const moreLikeThisSchema = new mongoose.Schema({

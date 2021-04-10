@@ -22,9 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/hello', (req, res) => {
-  res.send('Hello World!');
-});
 
 app.get('/:id', (req, res) => {
   res.sendFile(path.resolve('public/dist/index.html'));

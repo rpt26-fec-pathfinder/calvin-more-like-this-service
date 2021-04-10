@@ -29,3 +29,6 @@ bundle.js
 
 # Key files
 *.pem
+
+# Environmental variables
+*.env
