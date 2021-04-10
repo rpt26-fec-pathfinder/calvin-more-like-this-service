@@ -15,7 +15,7 @@ const getData = async (page) => {
 
   // GET request to James' product endpoint
   const getProductInfo = () => {
-    return axios.get(`http://3.227.255.185:4032/api/product/${page}`);
+    return axios.get(`http://3.227.255.185/api/product/${page}`);
   };
   // GET request to Tim's review endpoint
   const getReviewInfo = () => {
