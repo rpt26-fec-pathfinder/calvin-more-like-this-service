@@ -1,31 +1,35 @@
-const {app} = require('../server/server.js');
+jest.useFakeTimers();
+const app = require('../server/server.js');
 const request = require('supertest');
+const port = require('../server/index.js');
 
 let server;
 
 beforeAll(() => {
+  process.env.NODE_ENV = 'test';
   server = app.listen(4000, () => {
-    console.log('Listening on 4000 for testing');
+    console.log(`Listening on ${4000} for testing`);
   });
 });
 
-afterEach(() => {
-  server.close();
-});
+// afterEach(() => {
+//   server.close();
+// });
 
 describe('Testing GET requests to server', () => {
 
   test('Should successfully return an Array of objects', async done => {
     let id = Math.floor(Math.random() * 100 + 1);
-    await request(app)
-      .get(`/morelikethis/${id}`)
+    let x = await request(app).get(`/morelikethis/${id}`);
+    console.log(x)
       .expect(200)
       .then(games => {
+        console.log(games);
         expect(Array.isArray(games.body)).toBeTruthy();
         expect(typeof games.body[0] === 'object' && typeof games.body[0] !== undefined && typeof games.body[0] !== null).toBeTruthy();
       });
     done();
-  });
+  }, 10000);
 
   test('Should return error string if id is greater than 100', async done => {
     await request(app)

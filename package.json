@@ -15,7 +15,7 @@
     "dev": "NODE_ENV=development nodemon ./server/index.js",
     "seed": "node server/seedingScript.js",
     "start": "node ./server/index.js",
-    "test": "jest --coverage --detectOpenHandles ./spec"
+    "test": "jest --coverage --detectOpenHandles --forceExit"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",

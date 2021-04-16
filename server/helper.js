@@ -1,9 +1,11 @@
 const axios = require('axios');
+const { retrieveGameAtId } = require('../database/index.js');
 
 const getData = async (page) => {
 
   const data = {
     id: null,
+    tags: null,
     title: null,
     price: null,
     releaseDate: null,
@@ -12,6 +14,15 @@ const getData = async (page) => {
     headerImage: null,
     gallery: null
   };
+
+  await retrieveGameAtId(page)
+    .then(tags => {
+      data.tags = tags[0].tags;
+    })
+    .catch(err => {
+      console.log('Error getting tags from database', err);
+    });
+
 
   // GET request to James' product endpoint
   const getProductInfo = () => {
